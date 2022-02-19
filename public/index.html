@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timezones</title>
+</head>
+<body>
+    <h1>Current date and time in different timezones</h1>
+    <div id="timezone-container"></div>
+    <script>
+        const timezones = [{name : "ECT", offset : 1}, {name : "GMT", offset : 0}, {name : "PST", offset : -8}, {name : "NST", offset : 12}];
+
+        displayTimezones(timezones);
+        setInterval(() => displayTimezones(timezones), 1000);
+        
+        function calculateTime(offsetHours) {
+            const currentDate = new Date();
+            const utcTime = currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000;
+            const timezoneTime = utcTime + offsetHours * 60 * 60 * 1000;
+            return new Date(timezoneTime);
+        }
+
+        function displayTimezones(timezones) {
+            const timezoneDiv = document.getElementById("timezone-container");
+            timezoneDiv.innerHTML = "";
+            for (timezone of timezones) {
+                const h3 = document.createElement("h3");
+                h3.innerText = `${timezone.name}: ${calculateTime(timezone.offset).toLocaleString()}`;
+                timezoneDiv.appendChild(h3);
+            }
+        }
+    </script>
+</body>
+</html>
