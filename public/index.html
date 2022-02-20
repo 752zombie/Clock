@@ -25,7 +25,7 @@
         function displayTimezones(timezones) {
             const timezoneDiv = document.getElementById("timezone-container");
             timezoneDiv.innerHTML = "";
-            for (timezone of timezones) {
+            for (let timezone of timezones) {
                 const h3 = document.createElement("h3");
                 h3.innerText = `${timezone.name}: ${calculateTime(timezone.offset).toLocaleString()}`;
                 timezoneDiv.appendChild(h3);
